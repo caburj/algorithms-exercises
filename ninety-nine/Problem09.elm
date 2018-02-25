@@ -4,21 +4,20 @@ import Extra01 exposing (dropWhile)
 import Extra02 exposing (takeWhile)
 import Html
 import List
-import Maybe
 
 
 pack : List a -> List (List a)
-pack xs =
-    case xs of
+pack list =
+    case list of
         [] ->
             []
 
-        head :: tail ->
+        y :: ys ->
             let
-                remainder =
-                    dropWhile (\x -> x == head) tail
+                remaining =
+                    dropWhile (\x -> x == y) ys
             in
-                takeWhile (\x -> x == head) xs :: pack remainder
+                takeWhile (\x -> x == y) list :: pack remaining
 
 
 main : Html.Html a

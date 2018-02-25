@@ -1,10 +1,9 @@
-module Main exposing (..)
+module Problem11 exposing (..)
 
 import Problem09 exposing (pack)
 import Problem10 exposing (runLengths)
 import Html
 import List
-import Maybe
 
 
 type RleCode a
@@ -13,18 +12,17 @@ type RleCode a
 
 
 rleEncode : List a -> List (RleCode a)
-rleEncode list =
-    let
-        converter ( len, a ) =
-            case len of
-                1 ->
-                    Single a
+rleEncode =
+    (List.map convert) << runLengths << pack
 
-                _ ->
-                    Run len a
-    in
-        List.map converter (list |> pack |> runLengths)
+convert : (Int, a) -> RleCode a
+convert ( len, a ) =
+    case len of
+        1 ->
+            Single a
 
+        _ ->
+            Run len a
 
 main : Html.Html a
 main =

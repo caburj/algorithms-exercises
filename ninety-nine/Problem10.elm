@@ -1,26 +1,23 @@
 module Problem10 exposing (runLengths)
 
 import Html
-import List
-import Maybe
+import List exposing (head)
+import Maybe exposing (Maybe(..), withDefault)
 
 
 runLengths : List (List a) -> List ( Int, a )
-runLengths xss =
-    List.map (\list -> ( List.length list, List.head list )) xss |> removeNothings
-
-
-removeNothings : List ( Int, Maybe a ) -> List ( Int, a )
-removeNothings list =
-    case list of
+runLengths listOfList =
+    case listOfList of
         [] ->
             []
 
-        ( count, Nothing ) :: tail ->
-            removeNothings tail
+        xs :: xss ->
+            case head xs of
+                Nothing ->
+                    runLengths xss
 
-        ( count, Just x ) :: tail ->
-            ( count, x ) :: removeNothings tail
+                Just x ->
+                    ( List.length xs, x ) :: runLengths xss
 
 
 main : Html.Html a
@@ -34,7 +31,7 @@ main =
                 "Your implementation failed one test."
 
             x ->
-                "Your implementation failed " ++ (toString x) ++ " tests."
+                "Your implementation failed " ++ toString x ++ " tests."
 
 
 test : Int

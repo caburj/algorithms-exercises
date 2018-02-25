@@ -7,7 +7,7 @@ import Maybe
 
 penultimate : List a -> Maybe a
 penultimate list =
-    case (List.reverse >> List.drop 1) list of
+    case (List.drop 1 << List.reverse) list of
         [] ->
             Nothing
 
