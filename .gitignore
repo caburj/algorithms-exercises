@@ -1,5 +1,6 @@
 */elm-stuff/*
-
+*/.ipynb_checkpoints/*
 elm-stuff/*
-
+*/__pycache__/*
 node_modules/*
+
