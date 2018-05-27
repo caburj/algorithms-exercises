@@ -42,6 +42,15 @@ def merge(left, right):
         return combine + list(left)
     return combine + list(right)
 
+def quick_sort(lst):
+    if len(lst) <= 1:
+        return lst
+    pivot = lst[0]
+    left = [i for i in lst if i < pivot]
+    equal = [i for i in lst if i == pivot]
+    right = [i for i in lst if i > pivot]
+    return quick_sort(left) + equal + quick_sort(right)
+
 def read_majority_element_data():
     with open('4_2_majority_element.in') as f:
         f.readline()
@@ -57,11 +66,16 @@ def test_python_sort(lst):
     return sorted(lst)
 
 @time_it(n=5)
+def test_quick_sort(lst):
+    return quick_sort(lst)
+
+@time_it(n=5)
 def test_merge_sort(lst):
     return merge_sort(lst)
 
 if __name__ == '__main__':
     lst = read_majority_element_data()
-    print(test_selection_sort(lst)[:5])
+    #print(test_selection_sort(lst)[:5])
     print(test_python_sort(lst)[:5])
     print(test_merge_sort(lst)[:5])
+    print(test_quick_sort(lst)[:5])
