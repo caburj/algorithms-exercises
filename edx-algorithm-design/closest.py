@@ -4,36 +4,61 @@ sys.setrecursionlimit(1000000000)
 
 from myfunc import time_it
 
-def closest_pair(points):
-    if len(points) <= 1:
-        return 0.
+"""
+LESSONS LEARNED
+--------------
+- It is very important to correctly define the base cases, especially in
+implementing recursive functions.
+"""
 
+def closest_distance(points):
+    # base cases
+    if len(points) <= 1:
+        return None
     if len(points) == 2:
         return points[0] | points[1]
-
-    sorted_points = sorted(points, key=lambda p: p.x)
+    # calculate the mid-line
     mid = int(len(points) / 2)
-    p1 = sorted_points[mid]
-    p2 = sorted_points[mid + 1]
+    p1 = points[mid]
+    p2 = points[mid + 1]
     mid_line = ( (p1 + p2) / 2 ).x
-    print(mid_line)
-    d1 = closest_pair(sorted_points[:mid])
-    d2 = closest_pair(sorted_points[mid:])
-    d = min(d1, d2)
+    # recusive call for left and right parts
+    d1 = closest_distance(points[:mid])
+    d2 = closest_distance(points[mid:])
+    # merging the results
+    d = min_(d1, d2)
     upper_x, lower_x = mid_line + d, mid_line - d
-    middle_points = [point for point in sorted_points
-                     if lower_x <= point.x <= upper_x]
-    d_ = naive_closest_pair(middle_points)
-    return min(d, d_)
+    # points in the middle band
+    middle_points = [point for point in points if lower_x <= point.x <= upper_x]
+    # perform naive closest pair algorithm for the points in the middle band
+    d_ = naive_closest_distance(middle_points)
+    return min_(d, d_)
 
-def naive_closest_pair(points):
+
+def improved_closest_distance(points):
+    pass
+
+
+def min_(a, b):
+    if a is None:
+        return b
+    if b is None:
+        return a
+    return min(a, b)
+
+
+def naive_closest_distance(points):
+    if len(points) <= 1:
+        return None
+
     distances = {}
     for i in range(len(points)):
         for j in range(len(points)):
             if i != j:
                 distances[(i, j)] = points[i] | points[j]
-    i, j = min(distances, key=lambda key: distances[key])
-    return points[i] | points[j]
+
+    return min(distances.values())
+
 
 class Point:
     def __init__(self, x, y):
@@ -73,16 +98,33 @@ class Point:
         """operator to get the distance between self and other"""
         return abs(self - other)
 
+
 def read_closest_data():
     with open('data/4_6_closest.in') as f:
         f.readline()
         points_ = [line.strip().split() for line in f.read().strip().split('\n')]
     return [Point(*[int(comp) for comp in point]) for point in points_]
 
+
+@time_it(n=1)
+def test_naive_closest_distance(points):
+    return naive_closest_distance(points)
+
+
+@time_it(n=1)
+def test_closest_distance(points):
+    return closest_distance(points)
+
+
+@time_it(n=1)
+def test_improved_closest_distance(points):
+    return improved_closest_distance(points)
+
+
 if __name__ == '__main__':
     points = read_closest_data()
-    points = points[:1000]
-    # points = [Point(7, 7), Point(1, 100), Point(4, 8), Point(7, 7)]
-    points = [Point(*pair) for pair in [(4,4), (-2,-2), (-3,-4), (-1,3), (2,3), (-4,0), (1,1), (-1,-1), (3,-1), (-4,2), (-2,4)]]
-    print(naive_closest_pair(points))
-    print(closest_pair(points))
+    points = points[:]
+    sorted_points = sorted(points, key=lambda p: p.x)
+    # sorted_points_ = sorted(sorted_points, key=lambda p: p.y)
+    # print(test_naive_closest_distance(sorted_points))
+    print(test_closest_distance(sorted_points))

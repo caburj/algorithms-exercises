@@ -43,7 +43,6 @@ def maximum_loot_recursive(items, capacity):
 def bag_value(bag):
     return sum(item[0] for item in bag)
 
-
 def read_input(path):
     with open(path) as f:
         first_line = f.readline()
@@ -51,7 +50,6 @@ def read_input(path):
         items_str = f.readlines()[:-1]
         items = [tuple(int(val) for val in line.split()) for line in items_str]
     return items, capacity
-
 
 def read_max_rev_input(path):
     with open(path) as f:
@@ -63,7 +61,6 @@ def read_max_rev_input(path):
         b = [float(x) for x in b_str.strip().split()]
 
     return a, b
-
 
 def maximum_revenue(a, b):
     """
