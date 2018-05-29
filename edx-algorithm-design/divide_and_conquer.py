@@ -11,7 +11,6 @@ def timeit(func):
         return result
     return wrapper
 
-
 def read_majority_element_input(path):
     with open(path) as f:
         f.readline() # skip first line
@@ -82,10 +81,10 @@ def compare_search(lst, to_search):
 if __name__ == '__main__':
     import sys
     sys.setrecursionlimit(1000000)
-    lst = read_majority_element_input('4_2_majority_element.in')
+    lst = read_majority_element_input('data/4_2_majority_element.in')
     #print(majority_element(lst))
-    print(answer_binary_search('4_1_binary_search.in'))
-    print(answer_python_search('4_1_binary_search.in'))
+    print(answer_binary_search('data/4_1_binary_search.in'))
+    print(answer_python_search('data/4_1_binary_search.in'))
     #compare_search(lst, to_search[:100])
     #print(search(lst, to_search[91]))
 

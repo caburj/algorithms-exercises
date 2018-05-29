@@ -82,13 +82,13 @@ def quick_sort(lst):
     return quick_sort(left) + equal + quick_sort(right)
 
 def read_majority_element_data():
-    with open('4_2_majority_element.in') as f:
+    with open('data/4_2_majority_element.in') as f:
         f.readline()
         lst_ = f.readline().strip().split()
     return [int(i) for i in lst_]
 
 def read_inversions_data():
-    with open('4_4_inversions.in') as f:
+    with open('data/4_4_inversions.in') as f:
         f.readline()
         lst_ = f.readline().strip().split()
     return [int(i) for i in lst_]

@@ -80,6 +80,6 @@ def maximum_revenue(a, b):
     return sum(x*y for x, y in zip(sorted_a, sorted_b))
 
 if __name__ == '__main__':
-    print(bag_value(maximum_loot(*read_input('loot.in'))))
-    print(bag_value(maximum_loot_recursive(*read_input('loot.in'))))
-    print(maximum_revenue(*read_max_rev_input('max_rev_input.in')))
+    print(bag_value(maximum_loot(*read_input('data/loot.in'))))
+    print(bag_value(maximum_loot_recursive(*read_input('data/loot.in'))))
+    print(maximum_revenue(*read_max_rev_input('data/max_rev_input.in')))
